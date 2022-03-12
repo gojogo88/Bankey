@@ -9,14 +9,16 @@ import UIKit
 
 class LoginView: UIView {
     
-    private lazy var usernameTextField: UITextField = {
+    // MARK: - Properties
+    
+    lazy var usernameTextField: UITextField = {
         let tf = UITextField()
         tf.delegate = self
         tf.placeholder = "Username"
         return tf
     }()
     
-    private lazy var passwordTextField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let tf = UITextField()
         tf.delegate = self
         tf.placeholder = "Password"
@@ -42,6 +44,8 @@ class LoginView: UIView {
         return sv
     }()
     
+    
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -57,6 +61,7 @@ class LoginView: UIView {
 
 extension LoginView {
     
+    // MARK: - Private Methods
     private func setupViews() {
         backgroundColor = .secondarySystemBackground
         layer.cornerRadius = 8
@@ -79,7 +84,7 @@ extension LoginView {
     }
 }
 
-
+// MARK: - UITextField Delegate
 extension LoginView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         usernameTextField.endEditing(true)
@@ -88,11 +93,7 @@ extension LoginView: UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if usernameTextField.text != "" {
-            return true
-        } else {
-            return false
-        }
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

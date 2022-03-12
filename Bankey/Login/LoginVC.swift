@@ -9,8 +9,38 @@ import UIKit
 
 class LoginVC: UIViewController {
     
+    // MARK: - Properties
     let loginView = LoginView()
+    
+    private lazy var signinButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.configuration = .filled()
+        button.configuration?.imagePadding = 8 // for indicator spacing
+        button.setTitle("Sign In", for: [])
+        button.addTarget(self, action: #selector(signinTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var errorMessageLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = .systemRed
+        label.numberOfLines = 0
+        label.isHidden = true
+        return label
+    }()
+    
+    var username: String? {
+        return loginView.usernameTextField.text
+    }
+    
+    var password: String? {
+        return loginView.passwordTextField.text
+    }
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,11 +48,11 @@ class LoginVC: UIViewController {
         addComponents()
         layoutComponents()
     }
-
-
 }
 
 extension LoginVC {
+    
+    // MARK: - Private Methods
     
     private func setupViews() {
         loginView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,14 +61,55 @@ extension LoginVC {
     
     private func addComponents() {
         view.addSubview(loginView)
+        view.addSubview(signinButton)
+        view.addSubview(errorMessageLabel)
     }
     
     private func layoutComponents() {
         NSLayoutConstraint.activate([
-            loginView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             loginView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            loginView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+            loginView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            
+            signinButton.topAnchor.constraint(equalTo: loginView.bottomAnchor, constant: 16),
+            signinButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
+            signinButton.trailingAnchor.constraint(equalTo: loginView.trailingAnchor),
+            
+            errorMessageLabel.topAnchor.constraint(equalTo: signinButton.bottomAnchor, constant: 16),
+            errorMessageLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
+            errorMessageLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor),
         ])
+    }
+}
+
+// MARK: - Actions
+extension LoginVC {
+    @objc func signinTapped(sender: UIButton) {
+        errorMessageLabel.isHidden = true
+        login()
+        
+    }
+    
+    private func login() {
+        guard let username = username, let password = password else {
+            assertionFailure("Username / password should never be nil")
+            return
+        }
+        
+        if username.isEmpty || password.isEmpty {
+            configureErrorView(withMessage: "Username / password cannot be blank")
+            return
+        }
+        
+        if username == "Kevin" && password == "Welcome" {
+            signinButton.configuration?.showsActivityIndicator = true
+        } else {
+            configureErrorView(withMessage: "Incorrect username / password")
+        }
+    }
+    
+    private func configureErrorView(withMessage message: String) {
+        errorMessageLabel.isHidden = false
+        errorMessageLabel.text = message
     }
 }
