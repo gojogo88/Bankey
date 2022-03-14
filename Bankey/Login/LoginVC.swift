@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol LogouDelegate: AnyObject {
+    func didLogout()
+}
+
 protocol LoginVCDelegate: AnyObject {
     func didLogin()
 }
@@ -75,6 +79,11 @@ class LoginVC: UIViewController {
         setupViews()
         addComponents()
         layoutComponents()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        signinButton.configuration?.showsActivityIndicator = false
     }
 }
 

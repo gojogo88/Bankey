@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let loginVC = LoginVC()
     let onboardingContainerVC = OnboardingContainerVC()
+    let dummyVC = DummyVC()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -23,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         loginVC.delegate = self
         onboardingContainerVC.delgate = self
+        dummyVC.delegate = self
+        
         window?.rootViewController = loginVC
         
         return true
@@ -32,13 +35,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: LoginVCDelegate {
     func didLogin() {
-        window?.rootViewController = onboardingContainerVC
+        setRootVC(onboardingContainerVC)
     }
 }
 
 extension AppDelegate: OnboardingContainerVCDelegate {
     func didFinishOnboarding() {
-        print("did onboard")
+        setRootVC(dummyVC)
+    }
+}
+
+extension AppDelegate: LogouDelegate {
+    func didLogout() {
+        setRootVC(loginVC)
     }
 }
 

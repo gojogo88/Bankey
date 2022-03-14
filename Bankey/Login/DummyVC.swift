@@ -10,6 +10,9 @@ import UIKit
 class DummyVC: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: LogouDelegate?
+    
     private lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +69,6 @@ extension DummyVC {
     
     // MARK: - Acitons
     @objc func logoutTapped(_ sender: UIButton) {
-        
+        delegate?.didLogout()
     }
 }
