@@ -7,10 +7,36 @@
 
 import UIKit
 
+protocol LoginVCDelegate: AnyObject {
+    func didLogin()
+}
+
 class LoginVC: UIViewController {
     
     // MARK: - Properties
     let loginView = LoginView()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.adjustsFontForContentSizeCategory = true
+        label.text = "Bankey"
+        return label
+    }()
+    
+    private lazy var subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.text = "Your premium source for all things banking!"
+        return label
+    }()
+    
     
     private lazy var signinButton: UIButton = {
         let button = UIButton(type: .system)
@@ -31,6 +57,8 @@ class LoginVC: UIViewController {
         label.isHidden = true
         return label
     }()
+    
+    weak var delegate: LoginVCDelegate?
     
     var username: String? {
         return loginView.usernameTextField.text
@@ -60,6 +88,8 @@ extension LoginVC {
     }
     
     private func addComponents() {
+        view.addSubview(titleLabel)
+        view.addSubview(subtitleLabel)
         view.addSubview(loginView)
         view.addSubview(signinButton)
         view.addSubview(errorMessageLabel)
@@ -67,6 +97,14 @@ extension LoginVC {
     
     private func layoutComponents() {
         NSLayoutConstraint.activate([
+            
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            subtitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 3),
+            subtitleLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
+            subtitleLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor),
+            
+            loginView.topAnchor.constraint(equalToSystemSpacingBelow: subtitleLabel.bottomAnchor, multiplier: 3),
             loginView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             loginView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             loginView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
@@ -103,6 +141,7 @@ extension LoginVC {
         
         if username == "Kevin" && password == "Welcome" {
             signinButton.configuration?.showsActivityIndicator = true
+            delegate?.didLogin()
         } else {
             configureErrorView(withMessage: "Incorrect username / password")
         }
