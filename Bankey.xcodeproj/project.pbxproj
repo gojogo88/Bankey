@@ -13,6 +13,7 @@
 		6C5C953327DC9A49002C4B41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C5C953127DC9A49002C4B41 /* LaunchScreen.storyboard */; };
 		6C5C953D27DC9C31002C4B41 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C953C27DC9C31002C4B41 /* LoginView.swift */; };
 		6C5C954027DCB1CC002C4B41 /* OnboardingContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C953F27DCB1CC002C4B41 /* OnboardingContainerVC.swift */; };
+		6C5C954227DCB4B6002C4B41 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C954127DCB4B6002C4B41 /* OnboardingVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6C5C953427DC9A49002C4B41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C5C953C27DC9C31002C4B41 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6C5C953F27DCB1CC002C4B41 /* OnboardingContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerVC.swift; sourceTree = "<group>"; };
+		6C5C954127DCB4B6002C4B41 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				6C5C953F27DCB1CC002C4B41 /* OnboardingContainerVC.swift */,
+				6C5C954127DCB4B6002C4B41 /* OnboardingVC.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			files = (
 				6C5C953D27DC9C31002C4B41 /* LoginView.swift in Sources */,
 				6C5C954027DCB1CC002C4B41 /* OnboardingContainerVC.swift in Sources */,
+				6C5C954227DCB4B6002C4B41 /* OnboardingVC.swift in Sources */,
 				6C5C952B27DC9A48002C4B41 /* LoginVC.swift in Sources */,
 				6C5C952727DC9A48002C4B41 /* AppDelegate.swift in Sources */,
 			);
