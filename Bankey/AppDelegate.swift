@@ -7,6 +7,8 @@
 
 import UIKit
 
+let appColor: UIColor = .systemTeal
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -15,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let loginVC = LoginVC()
     let onboardingContainerVC = OnboardingContainerVC()
     let dummyVC = DummyVC()
+    let mainVC = MainVC()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -26,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingContainerVC.delgate = self
         dummyVC.delegate = self
         
-        window?.rootViewController = loginVC
+        window?.rootViewController = mainVC
+        mainVC.selectedIndex = 0
         
         return true
     }
@@ -35,12 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: LoginVCDelegate {
     func didLogin() {
-        setRootVC(onboardingContainerVC)
+        if LocalState.hasOnboarded {
+            setRootVC(dummyVC)
+        } else {
+            setRootVC(onboardingContainerVC)
+        }
     }
 }
 
 extension AppDelegate: OnboardingContainerVCDelegate {
     func didFinishOnboarding() {
+        LocalState.hasOnboarded = true
         setRootVC(dummyVC)
     }
 }
