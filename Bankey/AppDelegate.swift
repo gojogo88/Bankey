@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingContainerVC.delgate = self
         dummyVC.delegate = self
         
-        window?.rootViewController = mainVC
+        window?.rootViewController = AccountSummaryVC()
         mainVC.selectedIndex = 0
         
         return true
